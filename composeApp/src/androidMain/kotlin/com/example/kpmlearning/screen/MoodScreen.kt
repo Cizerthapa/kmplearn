@@ -1,6 +1,8 @@
 package com.example.kpmlearning.screen
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,6 +36,15 @@ fun MoodScreen(
         label = "BackgroundColor"
     )
 
+    val scale by animateFloatAsState(
+        targetValue = 1f,
+        animationSpec = keyframes {
+            durationMillis = 300
+            1.2f at 150
+        },
+        label = "EmojiPop"
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +60,8 @@ fun MoodScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = mood.emoji,
-                fontSize = 96.sp
+                fontSize = 96.sp,
+                modifier = Modifier.scale(scale)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
